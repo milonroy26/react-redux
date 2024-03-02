@@ -1,20 +1,45 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from 'react-redux';
+import Counter from './components/Counter';
+import Stats from './components/Stats';
+import { decrement, increment } from "./features/counters/countersSlice";
 
-export default function App() {
 
+function App() {
   const counters = useSelector((state) => state.counters);
   const dispatch = useDispatch();
 
+  const totalCount = counters.reduce(
+    (sum, current) => (sum + current.value), 0
+  );
+
+  // Increment and Decrement
+  const handleIncrement = (counterId) => {
+    dispatch(increment(counterId));
+  };
+
+  // Increment and Decrement
+  const handleDecrement = (counterId) => {
+    dispatch(decrement(counterId));
+  };
+
   return (
-    <div className="w-screen h-screen p-10 bg-gray-100 text-slate-700">
-      <h1 className="max-w-md mx-auto text-center text-2xl font-bold">
-        Simple Counter Application
-      </h1>
+    <div className="bg-[#344151] h-[100vh] flex justify-center items-center flex-col gap-10">
+      <div className='text-[#0398d4] font-medium text-[40px] mb-2'>Incerement && Decrement</div>
 
-      <div className="max-w-md mx-auto mt-10 space-y-5">
+      {
+        counters.map((counter) => (
+          <Counter key={counter.id}
+            count={counter.value}
+            onIncrement={() => handleIncrement(counter.id)}
+            onDecrement={() => handleDecrement(counter.id)}
+          />
+        ))
+      }
 
-      </div>
-
+      {/* total Count */}
+      <Stats totalCount={totalCount} />
     </div>
-  )
+  );
 }
+
+export default App;
