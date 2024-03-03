@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Counter from './components/Counter';
 import Stats from './components/Stats';
 import { decrement, increment } from "./features/counters/countersSlice";
+import Post from './components/Post';
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
   };
 
   return (
-    <div className="bg-[#344151] h-[100vh] flex justify-center items-center flex-col gap-10">
+    <div className="bg-[#344151]  flex justify-center items-center flex-col gap-10">
       <div className='text-[#0398d4] font-medium text-[40px] mb-2'>Incerement && Decrement</div>
 
       {
@@ -38,6 +39,9 @@ function App() {
 
       {/* total Count */}
       <Stats totalCount={totalCount} />
+
+      {/* post section */}
+      <Post />
     </div>
   );
 }
